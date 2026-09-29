@@ -1,19 +1,3 @@
-// Transition between sections
-function showSection(nextId) {
-  document.querySelectorAll('.section').forEach(section => {
-    section.classList.add('hidden');
-  });
-  const nextSection = document.getElementById(nextId);
-  nextSection.classList.remove('hidden');
-
-  // Trigger fall-in animation for gallery images in the newly visible section
-  const galleryImages = nextSection.querySelectorAll('.gallery .memory');
-  galleryImages.forEach((img, index) => {
-    img.style.animationDelay = `${index * 0.2}s`;
-    img.classList.add('fall-in');
-  });
-}
-
 // Confetti Animation using Canvas
 function launchConfetti() {
   const canvas = document.getElementById('confettiCanvas');
@@ -72,7 +56,6 @@ function launchConfetti() {
 
 // Generate 300 sticky notes and animate any gallery images present on page load
 window.addEventListener('load', function() {
-  // Generate sticky notes for Section 2
   const container = document.getElementById('sticky-notes-container');
   const reasons = [
     "Reason 1: Your kindness lights up my world.",
@@ -128,21 +111,20 @@ window.addEventListener('load', function() {
   ];
   
   for (let i = 0; i < 300; i++) {
-    let note = document.createElement('div');
+    const note = document.createElement('div');
     note.className = 'sticky-note';
-    let left = Math.random() * 90;
-    let top = 20 + Math.random() * 60;
-    let rotate = (Math.random() * 10 - 5).toFixed(1) + "deg";
-    let delay = (0.2 + Math.random() * 5.3).toFixed(1) + "s";
+    const left = Math.random() * 90;
+    const top = 20 + Math.random() * 60;
+    const rotate = (Math.random() * 10 - 5).toFixed(1) + "deg";
+    const delay = (0.2 + Math.random() * 5.3).toFixed(1) + "s";
     note.style.left = left + '%';
     note.style.top = top + '%';
     note.style.setProperty('--rotate', rotate);
     note.style.animationDelay = delay;
-    note.innerHTML = "<p>" + reasons[i % 50] + "</p>";
+    note.innerHTML = "<p>" + reasons[i % reasons.length] + "</p>";
     container.appendChild(note);
   }
 
-  // Animate any gallery images already visible on page load
   document.querySelectorAll('.gallery').forEach(gallery => {
     const images = gallery.querySelectorAll('.memory');
     images.forEach((img, index) => {
@@ -152,14 +134,12 @@ window.addEventListener('load', function() {
   });
 });
 
-// Start the journey: play music and transition to Section 2
 document.getElementById('startBtn').addEventListener('click', function() {
   const bgMusic = document.getElementById('bgMusic');
   bgMusic.play();
   showSection('section2');
 });
 
-// Handle "Next" button transitions between sections
 document.querySelectorAll('.nextBtn').forEach(button => {
   button.addEventListener('click', function() {
     const nextId = this.getAttribute('data-next');
@@ -167,7 +147,6 @@ document.querySelectorAll('.nextBtn').forEach(button => {
   });
 });
 
-// Final acceptance in Section 5: trigger confetti and then show Section 6 (final sweet message)
 document.getElementById('finalBtn').addEventListener('click', function() {
   launchConfetti();
   setTimeout(() => {
@@ -175,43 +154,40 @@ document.getElementById('finalBtn').addEventListener('click', function() {
   }, 1500);
 });
 
-// Function to generate raining hearts in the proposal section
 function generateHearts() {
   const container = document.getElementById('hearts-container');
-  container.innerHTML = ''; // Clear any existing hearts
+  container.innerHTML = '';
 
-  // Create multiple heart elements for the "raining" effect
   for (let i = 0; i < 15; i++) {
     const heart = document.createElement('div');
     heart.classList.add('heart');
-    // Randomize horizontal position across the container
     heart.style.left = Math.random() * 100 + '%';
-    // Randomize animation delay for a more natural rain effect
     heart.style.animationDelay = Math.random() * 2 + 's';
     container.appendChild(heart);
-    // Remove heart after animation completes to keep the DOM clean
     heart.addEventListener('animationend', () => {
       heart.remove();
     });
   }
 }
 
-// Modified showSection function to trigger hearts for section5
 function showSection(nextId) {
   document.querySelectorAll('.section').forEach(section => {
     section.classList.add('hidden');
   });
+
   const nextSection = document.getElementById(nextId);
+  if (!nextSection) {
+    return;
+  }
+
   nextSection.classList.remove('hidden');
 
-  // Trigger fall-in animation for gallery images in the newly visible section
   const galleryImages = nextSection.querySelectorAll('.gallery .memory');
   galleryImages.forEach((img, index) => {
     img.style.animationDelay = `${index * 0.2}s`;
     img.classList.add('fall-in');
   });
 
-  // If the proposal section is shown, generate the raining hearts
   if (nextId === 'section5') {
     generateHearts();
   }
