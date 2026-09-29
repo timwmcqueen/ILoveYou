@@ -1,16 +1,16 @@
 # Interactive Web Experience
 
-A personal front-end web project built with vanilla JavaScript, HTML, and CSS.
+A personal front-end project built with vanilla JavaScript, HTML, and CSS.
 
-## Technical highlights
+## Features
 
-- DOM-driven multi-section state transitions
-- Responsive layout and custom CSS animation
+- Multi-section page transitions
+- Responsive layout
+- CSS animation
 - Dynamic content generation
-- Canvas-based visual effects
-- Browser audio and video handling
+- Canvas effects
+- Browser audio and video
 - Event-driven interactions
-- Progressive enhancement for a media-heavy experience
 
 ## Stack
 
@@ -20,7 +20,7 @@ A personal front-end web project built with vanilla JavaScript, HTML, and CSS.
 - Canvas API
 - Browser media APIs
 
-## Running locally
+## Run locally
 
 ```bash
 npm install
@@ -28,7 +28,3 @@ npm start
 ```
 
 The project runs locally with `live-server`.
-
-## Notes
-
-This repository is a personal project and is included as an example of front-end interaction work. It is not intended to represent a production application architecture.
